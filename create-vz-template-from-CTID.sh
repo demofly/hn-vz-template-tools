@@ -1,7 +1,9 @@
 #/bin/bash
 
 TEMPLDIR=`grep "^TEMPLATE" /etc/vz/vz.conf | cut -d= -f2`
-VEDIR=`grep "^VE_PRIVATE" /etc/vz/conf/openvz/$1.conf | cut -d= -f2 | cut -d\" -f2 | sed -e "s#\\$VEID#$1#g"`
+VZVECONF="/etc/vz/conf/openvz/$1.conf"
+test -f "${VZVECONF}" || VZVECONF="/etc/vz/conf/$1.conf"
+VEDIR=`grep "^VE_PRIVATE" "${VZVECONF}" | cut -d= -f2 | cut -d\" -f2 | sed -e "s#\\$VEID#$1#g"`
 vzctl stop $1
 pushd $VEDIR
     echo "Archiving image with tar..."
