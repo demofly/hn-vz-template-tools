@@ -1,7 +1,7 @@
 #/bin/bash
 
 TEMPLDIR=`grep "^TEMPLATE" /etc/vz/vz.conf | cut -d= -f2`
-VZVECONF="/etc/vz/conf/openvz/$1.conf"
+VZVECONF="/etc/vz/conf/$1.conf"
 test -f "${VZVECONF}" || VZVECONF="/etc/vz/conf/$1.conf"
 VEDIR=`grep "^VE_PRIVATE" "${VZVECONF}" | cut -d= -f2 | cut -d\" -f2 | sed -e "s#\\$VEID#$1#g"`
 vzctl stop $1
@@ -10,7 +10,7 @@ pushd $VEDIR
     tar --numeric-owner --exclude "etc/ssh/ssh_host_*_key*" --exclude "var/log/*" --exclude "root/.ssh/id*" \
 	 --exclude ".bash_history" --exclude "etc/puppet/ssl" --exclude "var/lib/puppet" \
 	 --exclude "/var/lib/itim/monitoring/reboot" --exclude "/rest" -zcf $TEMPLDIR/cache/$2.tar.gz .
-    echo "done."
+    echo "done.
 popd
 ls -lsh "$TEMPLDIR/cache/$2.tar.gz"
 vzctl start $1
