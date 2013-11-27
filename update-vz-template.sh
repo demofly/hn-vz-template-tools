@@ -1,9 +1,11 @@
 #!/bin/bash
 
-TPLNAME=debian-base-squeeze_7.2_amd64
+VEID=100
+TPLNAMEDIST=`vzctl exec $VEID lsb_release -ic | cut -d: -f2 | tr -s "\n\t " " " | sed -r 's#^ +| *$##g;s# #-#g'`
+TPLNAMEVER=`vzctl exec $VEID lsb_release -r | cut -d: -f2 | tr -s "\n\t " " " | sed -r 's# +##g'`
+TPLNAME=${TPLNAMEDIST}_${TPLNAMEVER}_amd64
 TPLDIR=`grep "^TEMPLATE" /etc/vz/vz.conf | cut -d= -f2 | tail -n1`/cache
 #TGTMASTERLISTD=''
-VEID=100
 
 rm -fv "${TPLDIR}/${TPLNAME}.tar.gz"
 vzctl exec ${VEID} apt-get clean # debian only! this string should be commented for non debian-like linux
