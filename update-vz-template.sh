@@ -1,9 +1,9 @@
 #!/bin/bash
 
-TPLNAME=debian-base-squeeze_6.0.6_amd64
+TPLNAME=debian-base-squeeze_7.2_amd64
 TPLDIR=`grep "^TEMPLATE" /etc/vz/vz.conf | cut -d= -f2 | tail -n1`/cache
 #TGTMASTERLISTD=''
-VEID=102
+VEID=100
 
 rm -fv "${TPLDIR}/${TPLNAME}.tar.gz"
 vzctl exec ${VEID} apt-get clean # debian only! this string should be commented for non debian-like linux

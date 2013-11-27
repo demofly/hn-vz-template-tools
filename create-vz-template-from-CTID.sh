@@ -9,8 +9,8 @@ pushd $VEDIR
     echo "Archiving image with tar..."
     tar --numeric-owner --exclude "etc/ssh/ssh_host_*_key*" --exclude "var/log/*" --exclude "root/.ssh/id*" \
 	 --exclude ".bash_history" --exclude "etc/puppet/ssl" --exclude "var/lib/puppet" \
-	 --exclude "/var/lib/itim/monitoring/reboot" --exclude "/rest" -zcf $TEMPLDIR/cache/$2.tar.gz .
-    echo "done.
+	 --exclude "/rest" -zcf $TEMPLDIR/cache/$2.tar.gz .
+    echo "done."
 popd
 ls -lsh "$TEMPLDIR/cache/$2.tar.gz"
 vzctl start $1
