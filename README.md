@@ -34,5 +34,23 @@ And assign a variable VEID a value 100
 
 run from your home dir [root]:
 ```
-hn-vz-template-tools/update-vz-template.sh
+root@hn01 ~ # hn-vz-template-tools/update-vz-template.sh
+removed `/var/lib/vz/template/cache/Debian-wheezy_7.2_amd64.tar.gz'
+~/hn-vz-template-tools ~
+~
+Stopping container ...
+Container was stopped
+Container is unmounted
+/var/lib/vz/private/100 ~
+Archiving image with tar...
+done.
+~
+205M -rw-r--r-- 1 root root 205M Nov 27 17:25 /var/lib/vz/template/cache/Debian-wheezy_7.2_amd64.tar.gz
+Starting container ...
+Container is mounted
+Adding IP address(es): 192.168.255.2
+Setting CPU units: 1000
+Setting CPUs: 1
+Container start in progress...
+root@hn01 ~ #
 ```
