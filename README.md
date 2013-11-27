@@ -1,13 +1,14 @@
 hn-vz-template-tools
 ====================
 
-A very small pack of script allows me to automate often updates of a clean debian vz template from VE for my HNs.
+# What is it?
 
-vz-template-targets.conf format:
+A very small pack of script allows me to automate often updates of a clean Debian OpenVZ template from Proxmox VE container for my PVE HNs.
+
+## `vz-template-targets.conf` content format:
 ```
-one-more-hn.my.domain:/my/path/to/VirtualImages/OpenVZ/
+one-more-hn1.my.domain:/var/lib/vz/template/cache/
+one-more-hn2.my.domain:/my/path/to/VirtualImages/OpenVZ/
 ```
 
-
-
-if you don't want to clone a generated tamplate, just leave vz-template-targets.conf empty.
+If you don't want to clone a generated tamplate, just leave `vz-template-targets.conf` empty.
