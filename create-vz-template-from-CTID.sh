@@ -7,7 +7,9 @@ VEDIR=`grep "^VE_PRIVATE" "${VZVECONF}" | cut -d= -f2 | cut -d\" -f2 | sed -e "s
 vzctl stop $1
 pushd $VEDIR
     echo "Archiving image with tar..."
-    tar --numeric-owner --exclude "etc/ssh/ssh_host_*_key*" --exclude "var/log/*" --exclude "root/.ssh/id*" \
+    tar --numeric-owner --exclude "etc/ssh/ssh_host_*_key*" \
+	 --exclude "*.log.*" --exclude "var/log/*.gz" --exclude "var/log/*/*.gz" \
+	 --exclude "root/.ssh/id*" \
 	 --exclude ".bash_history" --exclude "etc/puppet/ssl" --exclude "var/lib/puppet" \
 	 --exclude "/rest" -zcf $TEMPLDIR/cache/$2.tar.gz .
     echo "done."
