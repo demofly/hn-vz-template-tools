@@ -8,7 +8,8 @@ A very small pack of script allows me to automate often updates of a clean Debia
 
 ## How to start to use it?
 ### Select a CT with a clean actual Debian installation
-Deploy a clean CT on you PVE HN (master) node. Let we suppose it has CT ID 100.
+Deploy a clean CT on you PVE HN (master) node. Let we suppose it has CT ID 100. 
+Don't use this CT for any purposes except tempate creation, because it's logs will be truncated every time you create a template from it!
 
 ### Clone this tool:
 ```
@@ -37,6 +38,13 @@ root@hn01 ~ # hn-vz-template-tools/update-vz-template.sh
 removed `/var/lib/vz/template/cache/Debian-wheezy_7.2_amd64.tar.gz'
 ~/hn-vz-template-tools ~
 ~
+Cleaning the container's data..
+removed `/var/log/dmesg.0'
+removed `/var/log/dmesg.1.gz'
+removed `/var/log/atop/atop_20140123'
+removed `/var/log/atop/atop_20140202'
+removed `/var/log/atop/atop_20140120'
+removed `/var/log/atop/atop_20140130'
 Stopping container ...
 Container was stopped
 Container is unmounted
@@ -44,7 +52,7 @@ Container is unmounted
 Archiving image with tar...
 done.
 ~
-205M -rw-r--r-- 1 root root 205M Nov 27 17:25 /var/lib/vz/template/cache/Debian-wheezy_7.2_amd64.tar.gz
+187M -rw-r--r-- 1 root root 187M Feb 14 16:06 /var/lib/vz/template/cache/Debian-wheezy_7.4_amd64.tar.gz
 Starting container ...
 Container is mounted
 Adding IP address(es): 192.168.255.2
