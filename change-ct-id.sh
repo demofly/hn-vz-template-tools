@@ -8,7 +8,8 @@ DT=`date +'%y.%m.%d at %H:%M:%S'`
 
 TEMPLDIR=`grep "^TEMPLATE" /etc/vz/vz.conf | cut -d= -f2`
 SRCVZVECONF="/etc/vz/conf/${SRCID}.conf"
-test -f "${SRCVZVECONF}" || VZVECONF="/etc/vz/conf/${SRCID}.conf"
+SRCVZVEMNT="/etc/vz/conf/${SRCID}.mount"
+test -f "${SRCVZVECONF}" || exit 1
 SRCROOT=`grep "^VE_ROOT" "${SRCVZVECONF}" | cut -d= -f2 | cut -d\" -f2 | sed -e "s#\\$VEID#${SRCID}#g"`
 SRCPRIVATE=`grep "^VE_PRIVATE" "${SRCVZVECONF}" | cut -d= -f2 | cut -d\" -f2 | sed -e "s#\\$VEID#${SRCID}#g"`
 
@@ -19,6 +20,7 @@ VARROOT=`echo "${SRCROOT}" | sed "s#${SRCID}#\\$VEID#"`
 VARPRIVATE=`echo "${SRCPRIVATE}" | sed "s#${SRCID}#\\$VEID#"`
 
 TGTVZVECONF=`echo "${SRCVZVECONF}" | sed "s#${SRCID}\.#${TGTID}\.#"`
+TGTVZVEMNT=`echo "${SRCVZVEMNT}" | sed "s#${SRCID}\.#${TGTID}\.#"`
 
 # DEBUG
 
@@ -48,6 +50,7 @@ mv -v "${SRCPRIVATE}" "${TGTPRIVATE}"
 echo "## Fork the VE config to ${TGTVZVECONF}:"
 
 cp -v "${SRCVZVECONF}" "${TGTVZVECONF}"
+test -f "${SRCVZVEMNT}" && cp -v "${SRCVZVEMNT}" "${TGTVZVEMNT}"
 
 # edit the VE config:
 
@@ -55,12 +58,13 @@ echo "## Editing ${TGTVZVECONF} .."
 
 sed -r "s#(^VE_ROOT.*)${SRCROOT}#\1${VARROOT}#"                 -i "${TGTVZVECONF}"
 sed -r "s#(^VE_PRIVATE.*)${SRCPRIVATE}#\1${VARPRIVATE}#"        -i "${TGTVZVECONF}"
-sed -r "s#veth${SRCID}\.#veth${TGTID}\.#"                       -i "${TGTVZVECONF}"
+sed -r "s#veth${SRCID}\.#veth${TGTID}\.#g"                      -i "${TGTVZVECONF}"
 
 # Saving the source VE config to ${SRCVZVECONF}.destroy
 
 echo "## Saving the source VE config to ${SRCVZVECONF}.destroy"
-mv -v "${SRCVZVECONF}" "${SRCVZVECONF}.destroy"
+mv -fv "${SRCVZVECONF}" "${SRCVZVECONF}.destroy"
+test -f "${SRCVZVEMNT}" && mv -vf "${SRCVZVEMNT}" "${SRCVZVEMNT}.destroy"
 
 # The last accord:
 
