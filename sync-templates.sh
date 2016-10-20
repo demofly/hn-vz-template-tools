@@ -24,7 +24,7 @@ then
     HOST=`echo "$2" | cut -d':' -f1`
     TPLPATH=`echo "$2" | cut -d':' -f2`
     echo "  == Checking CentOS symlinks on ${HOST} :"
-    ssh -n ${HOST} "cd '${TPLPATH}'; ls *[cC][eE][nN][tT][oO][sS]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/centos.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done"
+    ssh -n ${HOST} "cd '${TPLPATH}'; ls *[cC][eE][nN][tT][oO][sS]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/centos.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done;  ls *[rR][hH][eE][lL]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/rhel.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done"
     echo
     exit
 fi
@@ -45,6 +45,6 @@ do
     HOST=`echo "$DEST" | cut -d':' -f1`
     TPLPATH=`echo "$DEST" | cut -d':' -f2`
     echo "  == Checking CentOS symlinks on ${HOST} :"
-    ssh -n ${HOST} "cd '${TPLPATH}'; ls *[cC][eE][nN][tT][oO][sS]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/centos.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done"
+    ssh -n ${HOST} "cd '${TPLPATH}'; ls *[cC][eE][nN][tT][oO][sS]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/centos.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done;  ls *[rR][hH][eE][lL]*.tar.gz | while read FL; do ln -sv /etc/vz/dists/rhel.conf /etc/vz/dists/\${FL}.conf 2>/dev/null; done"
     echo
 done
